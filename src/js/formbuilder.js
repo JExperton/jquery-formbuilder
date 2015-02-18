@@ -37,6 +37,9 @@
       // We'll call this function on form save with the proper objects
       save: false,
 
+	  // Language option added as a prefix to templates name
+      lang: 'en',
+
       // Whether to allow sorting of list items
       sortable: true,
 
@@ -118,7 +121,7 @@
     // Dynamically load templates
     if( dust.onLoad === undefined ){
       dust.onLoad = function(name, callback) {
-        $.ajax(_privateSelf._opts.templateBasePath + '/' + name + '.tpl', {
+        $.ajax(_privateSelf._opts.templateBasePath + '/' + _privateSelf._opts.lang + '_' + name + '.tpl', {
           success: function(data) {
             callback(undefined, data);
           },

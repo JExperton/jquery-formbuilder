@@ -30,6 +30,9 @@ var formrunner = function(opts){
     // Form submission method
     method: 'POST',
 
+	// Language prefix to load localized templates
+    lang: 'en',
+
     // Customizable base for templates
     templateBasePath: 'templates/runner'
 
@@ -41,7 +44,7 @@ var formrunner = function(opts){
   // Dynamically load templates
   if( dust.onLoad === undefined ){
     dust.onLoad = function(name, callback) {
-      $.ajax(_privateSelf._opts.templateBasePath + '/' + name + '.tpl', {
+      $.ajax(_privateSelf._opts.templateBasePath + '/' + _privateSelf._opts.lang + '_' + name + '.tpl', {
         success: function(data) {
           callback(undefined, data);
         },
