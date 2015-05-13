@@ -7,11 +7,11 @@
  */
 (function (window,undefined){
 
-  var formbuilder = function( opts ){
-    return new formbuilderEngine(opts);
-  };
+  var Formbuilder = function(opts){
 
-  var formbuilderEngine = function(opts){
+    if( !(this instanceof Formbuilder) ){
+      throw new Error('Must instantiate using the `new` keyword');
+    }
 
     if( typeof opts.targets !== 'object' || opts.targets.length === 0 ){
       throw new Error('Invalid or missing target element(s)');
@@ -165,7 +165,7 @@
 
         engine._model = engine._opts.startingModel;
         // @todo validate against the field schema
-        
+
         var sorted = sortObject(engine._model);
 
         // Iterate model and render proper editors
@@ -261,7 +261,7 @@
 
   };
 
-  formbuilderEngine.prototype = {
+  Formbuilder.prototype = {
 
     // store options
     _opts: false,
@@ -286,7 +286,7 @@
 
         // Append final content
         self._opts.targets.append( out );
-        
+
       });
     },
 
@@ -510,7 +510,7 @@
 
       for( var k in self._model ){
         var field = self._model[k];
-        if( field.name === undefined || field.name === '' ){
+        if( typeof field.name !== 'string' || field.name.trim().length === 0 ){
           self._model[k].name = field.label.toLowerCase().replace(/([^a-zA-Z0-9\._-]+)/g,'-');
         }
       }
@@ -539,6 +539,6 @@
   };
 
   // map!
-  window.formbuilder = formbuilder;
+  window.Formbuilder = Formbuilder;
 
 })(this);

@@ -5,7 +5,7 @@
  * Originally designed for AspenMSM, a CMS product from Trellis Development
  * Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
  */
-var formrunner = function(opts){
+var Formrunner = function(opts){
 
   if( typeof opts.targets !== 'object' || opts.targets.length === 0 ){
     throw new Error('Invalid or missing target element(s)');
@@ -83,7 +83,7 @@ var sortObject = function(obj){
   return result;
 };
 
-formrunner.prototype = {
+Formrunner.prototype = {
 
   // store options
   _opts: false,
@@ -122,7 +122,7 @@ formrunner.prototype = {
       $.each(sorted,function(index,model){
         self.appendElementForModel( model, fields_wrapper );
       });
-      
+
     });
   },
 
