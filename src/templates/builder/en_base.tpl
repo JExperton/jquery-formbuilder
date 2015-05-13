@@ -1,4 +1,4 @@
-<form class="frmb-form" role="form">
+<form class="frmb-form build" role="form">
   <div>
     <select class="frmb-add-elem" name="frmb-add-elem" id="frmb-add-elem">
       <option value="">Add new field...</option>
