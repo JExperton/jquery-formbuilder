@@ -30,7 +30,7 @@ var formrunner = function(opts){
     // Form submission method
     method: 'POST',
 
-	// Language prefix to load localized templates
+  // Language prefix to load localized templates
     lang: 'en',
 
     // Customizable base for templates
@@ -106,15 +106,21 @@ formrunner.prototype = {
     // Load base form template
     dust.render('base', frmObj, function(err, out) {
 
-      // Append content
-      self._opts.targets.append( out );
+      // Cache and append the form
+      var form = $(out).appendTo(self._opts.targets),
+          fields_wrapper = form.find('.fields-wrapper');
+
+      // Append a fields wrapper to the form
+      if (fields_wrapper.length == 0) {
+        fields_wrapper = $('<div>', { 'class': 'fields-wrapper' } ).prependTo(form);
+      }
 
       // Sort incoming models
       var sorted = sortObject(self._opts.model);
 
       // Iterate model and render proper editors
       $.each(sorted,function(index,model){
-        self.appendElementForModel(model);
+        self.appendElementForModel( model, fields_wrapper );
       });
       
     });
@@ -123,8 +129,9 @@ formrunner.prototype = {
   /**
    * Append a rendered form element for a model
    * @param object model Form model from the builder
+   * @param object fields_wrapper fields container
    */
-  appendElementForModel: function( model ){
+  appendElementForModel: function( model, fields_wrapper ){
 
     var self = this;
 
@@ -139,9 +146,9 @@ formrunner.prototype = {
     dust.render(model.type, frmObj, function(err, out){
 
       // Set base template
-      self._opts.targets.find('form>ul').append( out );
+      fields_wrapper.append( out );
 
-      var lastLi = self._opts.targets.find('form>ul>li:last-child');
+      var lastField = $(out);
 
       // Build choices
       if( model.choices !== undefined && model.choices.length > 0 ){
@@ -154,9 +161,9 @@ formrunner.prototype = {
           dust.render(model.type+'-choices', choice, function(err, out){
 
             if( model.type === 'select' ){
-              lastLi.find('select').append(out);
+              lastField.find('select').append(out);
             } else {
-              lastLi.find('.frmb-choices').append(out);
+              lastField.find('.frmb-choices').append(out);
             }
           });
         });
