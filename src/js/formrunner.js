@@ -146,10 +146,8 @@ formrunner.prototype = {
     dust.render(model.type, frmObj, function(err, out){
 
       // Set base template
-      fields_wrapper.append( out );
-
-      var lastField = $(out);
-
+      var lastField = $(out).appendTo(fields_wrapper);
+      
       // Build choices
       if( model.choices !== undefined && model.choices.length > 0 ){
         $.each(model.choices,function(key,choice){
