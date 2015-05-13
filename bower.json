@@ -1,9 +1,9 @@
 {
   "name": "formbuilder",
-  "version": "2.0.2-beta",
-  "homepage": "https://github.com/Morialkar/jquery-formbuilder",
+  "version": "2.0.3-beta",
+  "homepage": "https://github.com/iTxTechnologies/jquery-formbuilder",
   "authors": [
-    "Mike Botsko <botsko@gmail.com>"
+    "iTx Technologies <sos@itx-technologies.com>"
   ],
   "description": "Build and process dynamic forms",
   "license": "MIT",
@@ -12,10 +12,15 @@
     "html5sortable": "*",
     "jquery": "~2.1.1"
   },
-  "devDependencies": [],
   "main": [
     "dist/js/formbuilder.min.js",
     "dist/js/formrunner.min.js"
   ],
-  "private": false
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
 }
