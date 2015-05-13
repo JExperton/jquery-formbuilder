@@ -30,7 +30,7 @@ var Formrunner = function(opts){
     // Form submission method
     method: 'POST',
 
-  // Language prefix to load localized templates
+    // Language prefix to load localized templates
     lang: 'en',
 
     // Customizable base for templates
@@ -122,6 +122,11 @@ Formrunner.prototype = {
       $.each(sorted,function(index,model){
         self.appendElementForModel( model, fields_wrapper );
       });
+
+      // Appends a csrf token if possible
+      if (self._opts.csrf_token) {
+        fields_wrapper.prepend('<input type="hidden" name="' + self._opts.csrf_token.name + '" value="' + self._opts.csrf_token.value + '">');
+      }
 
     });
   },
