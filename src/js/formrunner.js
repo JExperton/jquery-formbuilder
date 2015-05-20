@@ -123,9 +123,11 @@ Formrunner.prototype = {
         self.appendElementForModel( model, fields_wrapper );
       });
 
-      // Appends a csrf token if possible
-      if (self._opts.csrf_token) {
-        fields_wrapper.prepend('<input type="hidden" name="' + self._opts.csrf_token.name + '" value="' + self._opts.csrf_token.value + '">');
+      // Appends extra fields if available
+      if (self._opts.extra_fields) {
+        $.each(self._opts.extra_fields, function (index, value) {
+          fields_wrapper.prepend('<input type="hidden" name="' + index + '" value="' + value + '">');
+        });
       }
 
     });
